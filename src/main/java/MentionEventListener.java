@@ -13,8 +13,11 @@ public class MentionEventListener implements IListener<MentionEvent> {
     public void handle(MentionEvent mentionEvent) {
         try {
             if (mentionEvent.getMessage().getContent().contains("gtfo")){
-                RuneBot.mFamChannel.sendMessage("Signing off, RIP Harambe");
-                mentionEvent.getClient().logout();
+                if (mentionEvent.getMessage().getAuthor().getName().equals("iantel")) {
+                    RuneBot.mFamChannel.sendMessage("Signing off, RIP Harambe");
+                    mentionEvent.getClient().logout();
+                    System.exit(-1);
+                }
             }
             else {
                 RuneBot.mFamChannel.sendMessage("You called?");
