@@ -12,6 +12,8 @@ public class RuneBot {
 
     public static IChannel mFamChannel;
 
+    public static String token = "212962523585052672";
+
     public static void main(String[] args) throws Exception {
         client = getClient("MjEyNjIzMjUzMzg0OTg2NjI2.CovvYw.oygp_6OKWv6j1flSzm8yehQlGWw");
         client.login();

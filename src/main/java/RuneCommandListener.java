@@ -13,12 +13,22 @@ public class RuneCommandListener implements IListener<MessageReceivedEvent> {
     public void handle(MessageReceivedEvent event) {
         try{
             String message = event.getMessage().getContent();
-            String author = event.getMessage().getAuthor().getName();
-            if (message.startsWith("!")) {
 
+            if (message.startsWith("!")) {
                 String [] command = message.split(" ");
-                System.out.println("Command registered");
-                
+                switch (command[0]){
+                    case "!find":
+                        if (FindRuneCommand.isValid(command))
+                            new FindRuneCommand(command).execute(event);
+                        break;
+                    case "!info":
+                        if (InfoRuneCommand.isValid(command))
+                            new InfoRuneCommand(command).execute(event);
+                        break;
+                    case "!make":
+                        break;
+                }
+
             }
         } catch (Exception e){
             e.printStackTrace();
