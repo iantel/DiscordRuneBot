@@ -20,10 +20,10 @@ public class FindRuneCommand implements RuneCommand {
     @Override
     public void execute(MessageReceivedEvent event) {
         try {
-            String response = event.getMessage().getAuthor().mention() + " "
+            String response = event.getMessage().getAuthor().mention() + "\n``` "
                     + this.mSockets + " "
                     + this.mGearType + " "
-                    + " received command.";
+                    + " received command.\n ```";
             event.getClient().getChannelByID(RuneBot.token).sendMessage(response);
         } catch (Exception e){
             e.printStackTrace();

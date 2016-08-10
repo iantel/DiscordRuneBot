@@ -21,9 +21,9 @@ public class MakeRuneCommand implements RuneCommand {
                 runeword.append(runes[i] + " ");
         }
         try{
-            String response = event.getMessage().getAuthor().mention() + " "
+            String response = event.getMessage().getAuthor().mention() + "\n``` "
                     + runeword.toString().trim() + " "
-                    + "command received.";
+                    + "command received.\n ```";
             event.getClient().getChannelByID(RuneBot.token).sendMessage(response);
         } catch (Exception e){
             e.printStackTrace();

@@ -21,9 +21,9 @@ public class InfoRuneCommand implements RuneCommand {
     public void execute(MessageReceivedEvent event) {
 
         try {
-            String response = event.getMessage().getAuthor().mention() + " "
+            String response = event.getMessage().getAuthor().mention() + "\n```"
                     + this.runeword + " "
-                    + "received command.";
+                    + "received command.\n ```";
             event.getClient().getChannelByID(RuneBot.token).sendMessage(response);
         } catch (Exception e){
             e.printStackTrace();
