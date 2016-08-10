@@ -26,6 +26,8 @@ public class RuneCommandListener implements IListener<MessageReceivedEvent> {
                             new InfoRuneCommand(command).execute(event);
                         break;
                     case "!make":
+                        if (MakeRuneCommand.isValid(command))
+                            new MakeRuneCommand(command).execute(event);
                         break;
                 }
 
