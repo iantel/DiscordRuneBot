@@ -15,6 +15,9 @@ public class RuneBot {
     public static String token = "212962523585052672";
 
     public static void main(String[] args) throws Exception {
+        RuneWordLibrary.build("C:\\Users\\Ian\\Downloads\\OrigRuneWords.shtml");
+        RuneWordLibrary.build("C:\\Users\\Ian\\Downloads\\110RuneWords.shtml");
+        RuneWordLibrary.build("C:\\Users\\Ian\\Downloads\\111RuneWords.shtml");
         client = getClient("MjEyNjIzMjUzMzg0OTg2NjI2.CovvYw.oygp_6OKWv6j1flSzm8yehQlGWw");
         client.login();
         client.getDispatcher().registerListener(new InitChannelListener());

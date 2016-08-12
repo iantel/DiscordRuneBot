@@ -4,14 +4,24 @@
 public class RuneWeapon {
 
     public int sockets;
-    public String runeword;
-    public String weaponName;
+    public String runecombo;
+    public String weaponType;
+    public String weaponStats;
 
-    public RuneWeapon (int socketReq, String runeword, String name){
+    public RuneWeapon (int socketReq, String runecombo, String weaponType, String stats){
 
         this.sockets = socketReq;
-        this.runeword = runeword;
-        this.weaponName = name;
+        this.runecombo = runecombo;
+        this.weaponStats = stats;
+        isPaladinShield(weaponType);
+    }
 
+    private void isPaladinShield(String weaponType){
+        if (weaponType.contains("Paladin")){
+            this.weaponType = "Paladin Shield";
+        }
+        else{
+            this.weaponType = weaponType;
+        }
     }
 }

@@ -13,7 +13,7 @@ public class InfoRuneCommand implements RuneCommand {
             runewords.append(args[i] + " ");
         }
         runewords.trimToSize();
-        this.runeword = runewords.toString().trim();
+        this.runeword = runewords.toString().toUpperCase().trim();
     }
 
 
@@ -21,10 +21,16 @@ public class InfoRuneCommand implements RuneCommand {
     public void execute(MessageReceivedEvent event) {
 
         try {
-            String response = event.getMessage().getAuthor().mention() + "\n```"
-                    + this.runeword + " "
-                    + "received command.\n ```";
-            event.getClient().getChannelByID(RuneBot.token).sendMessage(response);
+            if (RuneWordLibrary.weaponMap.containsKey(this.runeword)){
+                System.out.println(runeword);
+                RuneWeapon runeWeapon = RuneWordLibrary.weaponMap.get(this.runeword);
+                String response = event.getMessage().getAuthor().mention() + "\n```"
+                        + this.runeword + " \n"
+                        + runeWeapon.runecombo + " \n"
+                        + runeWeapon.sockets + " " + runeWeapon.weaponType + "\n "
+                        + runeWeapon.weaponStats + "```";
+                event.getClient().getChannelByID(RuneBot.token).sendMessage(response);
+            }
         } catch (Exception e){
             e.printStackTrace();
         }
