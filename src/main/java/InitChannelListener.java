@@ -7,7 +7,7 @@ import sx.blah.discord.handle.impl.events.ReadyEvent;
 public class InitChannelListener implements IListener<ReadyEvent> {
 
     public void handle(ReadyEvent readyEvent) {
-        RuneBot.mFamChannel = RuneBot.client.getChannelByID("212962523585052672");
+        RuneBot.mFamChannel = RuneBot.client.getChannelByID("189425246791663616");
     }
 
 }

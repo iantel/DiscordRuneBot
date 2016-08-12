@@ -12,7 +12,7 @@ public class RuneBot {
 
     public static IChannel mFamChannel;
 
-    public static String token = "212962523585052672";
+    public static String token = "189425246791663616";
 
     public static void main(String[] args) throws Exception {
         RuneWordLibrary.build("C:\\Users\\Ian\\Downloads\\OrigRuneWords.shtml");
