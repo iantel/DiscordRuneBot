@@ -3,9 +3,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Ian on 2016-08-10.
@@ -41,5 +39,17 @@ public class RuneWordLibrary {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    static List<AbstractMap.SimpleEntry<String, RuneWeapon>> findWeapon (String query){
+        String [] args = query.split(" ");
+        List<AbstractMap.SimpleEntry<String, RuneWeapon>> found = new ArrayList<>();
+        for (String key : weaponMap.keySet()){
+            int sockets = Integer.parseInt(args[0]);
+            if (weaponMap.get(key).sockets == sockets && weaponMap.get(key).weaponType.toUpperCase().contains(args[1].toUpperCase())){
+                found.add(new AbstractMap.SimpleEntry<>(key, weaponMap.get(key)));
+            }
+        }
+        return found;
     }
 }
