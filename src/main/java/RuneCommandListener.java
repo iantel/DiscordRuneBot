@@ -14,7 +14,7 @@ public class RuneCommandListener implements IListener<MessageReceivedEvent> {
         try{
             String message = event.getMessage().getContent();
 
-            if (message.startsWith("!")) {
+            if (message.startsWith(key)) {
                 String [] command = message.split(" ");
                 switch (command[0]){
                     case "!find":

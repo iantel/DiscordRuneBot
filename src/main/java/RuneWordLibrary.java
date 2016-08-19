@@ -29,7 +29,7 @@ public class RuneWordLibrary {
                     String weaponType = availableWeapons[1];
 
                     String name = runeDetails.get(0).text().toUpperCase().replace("*","").trim();
-                    String runeCombination = runeDetails.get(2).text();
+                    String runeCombination = runeDetails.get(2).text().toUpperCase();
                     String stats = runeDetails.get(3).text().replaceAll("~","\n");
                     RuneWeapon runeWeapon = new RuneWeapon(sockets, runeCombination, weaponType, stats);
                     weaponMap.put(name, runeWeapon);
