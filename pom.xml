@@ -39,5 +39,11 @@
             <version>1.8.3</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.alphahelix00</groupId>
+            <artifactId>Discordinator</artifactId>
+            <version>1.2.5</version>
+        </dependency>
+
     </dependencies>
 </project>

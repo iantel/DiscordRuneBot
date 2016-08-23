@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Ian on 2016-08-10.
  */
-class MakeRuneCommand implements RuneCommand {
+class MakeRuneCommand{
 
     private String mRuneQuery;
 
@@ -23,7 +23,6 @@ class MakeRuneCommand implements RuneCommand {
         mRuneQuery = stringBuilder.toString().trim().toUpperCase();
     }
 
-    @Override
     public void execute(MessageReceivedEvent event) {
         Map <String, RuneWeapon> matches = getPossibleRuneWeapons(mRuneQuery);
         StringBuilder runeList = new StringBuilder();

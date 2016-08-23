@@ -3,7 +3,7 @@ import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 /**
  * Created by Ian on 2016-08-10.
  */
-public class InfoRuneCommand implements RuneCommand {
+public class InfoRuneCommand{
 
     private String runeword;
 
@@ -17,7 +17,6 @@ public class InfoRuneCommand implements RuneCommand {
     }
 
 
-    @Override
     public void execute(MessageReceivedEvent event) {
 
         try {
