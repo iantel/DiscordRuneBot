@@ -1,3 +1,4 @@
+import com.github.alphahelix00.discordinator.d4j.DiscordinatorModule;
 import com.github.alphahelix00.discordinator.d4j.handler.CommandHandlerD4J;
 import com.github.alphahelix00.ordinator.Ordinator;
 import sx.blah.discord.api.IDiscordClient;
@@ -7,12 +8,11 @@ import sx.blah.discord.modules.IModule;
  * Created by Ian on 2016-08-10.
  */
 
-public class RuneCommand implements IModule {
+class RuneCommand implements IModule {
 
-    private IDiscordClient client;
     @Override
     public boolean enable(IDiscordClient iDiscordClient){
-        this.client = iDiscordClient;
+        iDiscordClient.getModuleLoader().loadModule(new DiscordinatorModule());
         CommandHandlerD4J handlerD4J = new CommandHandlerD4J(Ordinator.getCommandRegistry());
         handlerD4J.registerCommand(new FindRuneCommand());
         return true;
@@ -20,7 +20,7 @@ public class RuneCommand implements IModule {
 
     @Override
     public void disable() {
-
+        //do nothing
     }
 
     @Override
