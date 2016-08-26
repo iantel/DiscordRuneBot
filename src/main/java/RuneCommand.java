@@ -15,6 +15,7 @@ class RuneCommand implements IModule {
         iDiscordClient.getModuleLoader().loadModule(new DiscordinatorModule());
         CommandHandlerD4J handlerD4J = new CommandHandlerD4J(Ordinator.getCommandRegistry());
         handlerD4J.registerCommand(new FindRuneCommand());
+        handlerD4J.registerCommand(new InfoRuneCommand());
         return true;
     }
 

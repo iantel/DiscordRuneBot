@@ -38,7 +38,8 @@ class FindRuneCommand extends CommandD4J {
                 StringBuilder response = new StringBuilder();
 
                 if (args.size() != 2) {
-                    messageBuilder.withContent("``` Invalid query length. ```").build();
+                    messageBuilder.withContent(messageReceivedEvent.getMessage().getAuthor().mention()
+                            + "``` Invalid query length. ```").build();
                     return;
                 }
                 //Generate query
