@@ -14,7 +14,7 @@ public class MentionEventListener implements IListener<MentionEvent> {
     public void handle(MentionEvent mentionEvent) {
         IMessage command = mentionEvent.getMessage();
         try {
-            if (command.getContent().contains("gtfo") && command.getAuthor().getName().equals("iantel")){
+            if (command.getContent().contains("gtfo") && command.getAuthor().getID().equals("167476540458663937")){
 
                 RuneBot.mFamChannel.sendMessage("Signing off, RIP Harambe");
                 mentionEvent.getClient().logout();

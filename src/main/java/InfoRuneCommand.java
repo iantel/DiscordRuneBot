@@ -38,13 +38,16 @@ public class InfoRuneCommand extends CommandD4J{
             try {
                 StringBuilder response = new StringBuilder();
 
-                if (args.size() != 1) {
+                if (args.size() < 1) {
                     msgBuilder.withContent(event.getMessage().getAuthor().mention()
-                            + "\n ```Invalid query length.").build();
+                            + "\n ``` Invalid query length. \n```").build();
                     return;
                 }
-
-                String runeword = args.get(0);
+                StringBuilder runewordargs = new StringBuilder();
+                for (String s : args){
+                    runewordargs.append(s + " ");
+                }
+                String runeword = runewordargs.toString().toUpperCase().trim();
                 if (RuneWordLibrary.weaponMap.containsKey(runeword)){
                     RuneWeapon runeWeapon = RuneWordLibrary.weaponMap.get(runeword);
                     response.append(event.getMessage().getAuthor().mention() + "\n```"
@@ -53,7 +56,8 @@ public class InfoRuneCommand extends CommandD4J{
                             + runeWeapon.sockets + " " + runeWeapon.weaponType + "\n "
                             + runeWeapon.weaponStats + "```");
                 } else {
-                    response.append("No runeword found matching that name.");
+                    response.append(event.getMessage().getAuthor().mention()
+                            +"\n ``` No runeword found matching that name. ```");
                 }
 
                 msgBuilder.withContent(response.toString()).build();
