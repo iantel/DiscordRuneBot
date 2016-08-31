@@ -1,56 +1,73 @@
+import com.github.alphahelix00.discordinator.d4j.commands.CommandD4J;
+import com.github.alphahelix00.ordinator.commands.Command;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
+import sx.blah.discord.handle.obj.Permissions;
+import sx.blah.discord.util.*;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
  * Created by Ian on 2016-08-10.
  */
-class MakeRuneCommand{
+class MakeRuneCommand extends CommandD4J{
 
-    private String mRuneQuery;
-
-    static boolean isValid(String[] command){
-        return command.length >= 1;
+    public MakeRuneCommand() {
+        super("!",
+                "make",
+                "Makes possible runewords based on user given runes",
+                "!make rune1 rune2 [Optional] rune3 rune4 rune5 rune6",
+                Collections.singletonList("make"),
+                true,
+                true,
+                false,
+                new HashMap<>(),
+                new HashMap<>(),
+                EnumSet.of(Permissions.READ_MESSAGES, Permissions.SEND_MESSAGES),
+                false,
+                true,
+                false,
+                false);
     }
 
-
-    MakeRuneCommand (String [] args){
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 1 ; i < args.length; i++){
-            stringBuilder.append(args[i] + " ");
-        }
-        mRuneQuery = stringBuilder.toString().trim().toUpperCase();
-    }
-
-    public void execute(MessageReceivedEvent event) {
-        Map <String, RuneWeapon> matches = getPossibleRuneWeapons(mRuneQuery);
-        StringBuilder runeList = new StringBuilder();
-        for (String name : matches.keySet()){
-            runeList.append(name);
-            runeList.append(": ");
-            runeList.append(matches.get(name).runecombo);
-            runeList.append("\n");
-        }
-        String response = event.getMessage().getAuthor().mention() + "\n``` \n"
-                + "Runewords that contain those runes: \n"
-                + runeList.toString().trim() + "\n"
-                + "```";
-        try {
-            event.getClient().getChannelByID(RuneBot.token).sendMessage(response);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
+    @Override
+    public Optional execute(List<String> args, MessageReceivedEvent event, MessageBuilder msgBuilder) throws IllegalAccessException, InvocationTargetException {
+        RequestBuffer.request(() -> {
+            try {
+                StringBuilder mRuneQuery = new StringBuilder();
+                for (String rune : args) {
+                    mRuneQuery.append(rune + " ");
+                }
+                Map<String, RuneWeapon> matches = getPossibleRuneWeapons(mRuneQuery.toString().trim());
+                StringBuilder runeList = new StringBuilder();
+                for (String name : matches.keySet()) {
+                    runeList.append(name);
+                    runeList.append(": ");
+                    runeList.append(matches.get(name).runecombo);
+                    runeList.append("\n");
+                }
+                String response = event.getMessage().getAuthor().mention() + "\n``` \n"
+                        + "Runewords that contain those runes: \n"
+                        + runeList.toString().trim() + "\n"
+                        + "Use !info for detailed stats. \n"
+                        + "```";
+                msgBuilder.withContent(response).build();
+            } catch (DiscordException | MissingPermissionsException e){
+                e.printStackTrace();
+            }
+        });
+        return Optional.empty();
     }
 
     private Map<String, RuneWeapon> getPossibleRuneWeapons(String args){
         Map <String, RuneWeapon> possibleWeapons = new HashMap<>();
-        List<String []> possibleWords = this.createPossibleRunewords(args);
-        for (String s : RuneWordLibrary.weaponMap.keySet()){
+        List<String []> possibleWords = createPossibleRunewords(args);
+        System.out.println(possibleWords.size());
+        for (String weaponName : RuneWordLibrary.weaponMap.keySet()){
             for (String [] possibleWord : possibleWords){
-                if (matches(s, possibleWord)){
-                    possibleWeapons.put(s, RuneWordLibrary.weaponMap.get(s));
+                if (matchesRuneWord(weaponName, possibleWord)){
+                    possibleWeapons.put(weaponName, RuneWordLibrary.weaponMap.get(weaponName));
                 }
             }
         }
@@ -67,20 +84,20 @@ class MakeRuneCommand{
                 possibleRunes.add(Arrays.copyOfRange(s,i,j+i));
             }
         }
+        System.out.println(possibleRunes.stream().filter(runes -> runes.length >= 2).collect(Collectors.toList()).size());
         return possibleRunes.stream().filter(runes -> runes.length >= 2).collect(Collectors.toList());
     }
 
 
-    private boolean matches (String weaponName, String [] possibleRuneCombo){
+    private boolean matchesRuneWord (String weaponName, String [] possibleRuneCombo){
         int matchCount = 0;
         for (String rune : possibleRuneCombo){
             for (String runeUnit : RuneWordLibrary.weaponMap.get(weaponName).runecombo.split(" \\+ ")){
-                if (rune.equals(runeUnit)){
-                    matchCount ++;
+                if (rune.equalsIgnoreCase(runeUnit)){
+                    matchCount++;
                 }
             }
         }
         return matchCount >= 2;
     }
-
 }

@@ -23,7 +23,7 @@ public class RuneBot {
         client.login();
         client.getDispatcher().registerListener(new InitChannelListener());
         client.getDispatcher().registerListener(new MentionEventListener());
-        new RuneCommand().enable(RuneBot.client);
+        new RuneCommandHandler().enable(RuneBot.client);
     }
 
     private static IDiscordClient getClient(String token) throws DiscordException {

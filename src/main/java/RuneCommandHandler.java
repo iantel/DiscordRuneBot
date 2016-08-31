@@ -8,14 +8,15 @@ import sx.blah.discord.modules.IModule;
  * Created by Ian on 2016-08-10.
  */
 
-class RuneCommand implements IModule {
+class RuneCommandHandler implements IModule {
 
     @Override
     public boolean enable(IDiscordClient iDiscordClient){
         iDiscordClient.getModuleLoader().loadModule(new DiscordinatorModule());
-        CommandHandlerD4J handlerD4J = new CommandHandlerD4J(Ordinator.getCommandRegistry());
-        handlerD4J.registerCommand(new FindRuneCommand());
-        handlerD4J.registerCommand(new InfoRuneCommand());
+        CommandHandlerD4J runeHandler = new CommandHandlerD4J(Ordinator.getCommandRegistry());
+        runeHandler.registerCommand(new FindRuneCommand());
+        runeHandler.registerCommand(new InfoRuneCommand());
+        runeHandler.registerCommand(new MakeRuneCommand());
         return true;
     }
 
