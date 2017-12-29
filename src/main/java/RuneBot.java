@@ -12,14 +12,14 @@ public class RuneBot {
 
     static IChannel mFamChannel;
 
-    static String token = "189425246791663616";
+    static String token = "";
 
     public static void main(String[] args) throws Exception {
         RuneWordLibrary.build("C:\\Users\\Ian\\Downloads\\OrigRuneWords.shtml");
         RuneWordLibrary.build("C:\\Users\\Ian\\Downloads\\110RuneWords.shtml");
         RuneWordLibrary.build("C:\\Users\\Ian\\Downloads\\111RuneWords.shtml");
 
-        client = getClient("MjEyNjIzMjUzMzg0OTg2NjI2.CovvYw.oygp_6OKWv6j1flSzm8yehQlGWw");
+        client = getClient("");
         client.login();
         client.getDispatcher().registerListener(new InitChannelListener());
         client.getDispatcher().registerListener(new MentionEventListener());
